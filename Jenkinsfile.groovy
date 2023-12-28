@@ -1,18 +1,18 @@
 node {
     
     stage('Checkout') {
-        git branch: 'main', credentialsId: 'github', url: 'https://github.com/Yogivishnu95/tomcat-project.git'
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/iamskanda/jenkins-1q.git'
   }
     
     stage('Test') {
-        echo 'This is Push Stage'
+        sh'mvn clean test'
     }
     
     stage('Build') {
-        sh 'mvn clean package'
+        sh 'mvn install'
     }
  
     stage('Deploy') {
-        sh 'sudo cp /home/ec2-user/git/tomcat-project/target/TomcatMavenApp-2.0.war /home/ec2-user/apache-tomcat-9.0.83/webapps'
+        sh 'sudo cp /home/ubuntu/jenkins/workspace/tomcat/target/*.war /opt/apache-tomcat-9.0.65/webapps/'
     }
 }
